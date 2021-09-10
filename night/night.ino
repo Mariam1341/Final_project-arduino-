@@ -1,7 +1,8 @@
 #include<Servo.h>
 #define trig 2 
 #define echo 3 
-#define led 4
+#define led 13
+#define led2 12
 #define ser 5
 #define LDR A0
 long duration; 
@@ -12,6 +13,7 @@ void setup() {
   pinMode(trig, OUTPUT); 
   pinMode(echo, INPUT);
   pinMode(led, OUTPUT);
+  pinMode(led2, OUTPUT);
   pinMode(LDR, INPUT);
   servo.attach(ser);
   Serial.begin(9600);
@@ -35,13 +37,17 @@ void human_there()
   Serial.print(distance);
   if (distance < 20){
     digitalWrite(led,HIGH);
+    digitalWrite(led2,HIGH);
+    delay(3000);
     }
    else{
+    digitalWrite(led,LOW);
     digitalWrite(led,LOW);
     } 
   }
 void loop() {
   digitalWrite(led,LOW);
+  digitalWrite(led2,LOW);
   ldrstatus = analogRead(LDR);
   if (ldrstatus <= 20){
     motion();
